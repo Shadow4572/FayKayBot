@@ -15,6 +15,7 @@ namespace FayKayBot
         private DiscordSocketClient _client;
         private CommandService _commands;
         private IServiceProvider _services;
+        private bool loginsuccess = false;
 
         public async Task RunBotAsync()
         {
@@ -34,7 +35,22 @@ namespace FayKayBot
 
             await RegisterCommandAsync();
 
-            await _client.LoginAsync(TokenType.Bot, botToken);
+            while (!loginsuccess)
+            {
+                try
+                {
+                    await _client.LoginAsync(TokenType.Bot, botToken);
+                    loginsuccess = true;
+                }
+                catch
+                {
+                    Console.Clear();
+                    Console.WriteLine("!!!Invalid token!!!");
+                    Console.Write("Please enter your token: ");
+                    botToken = Console.ReadLine();
+                    loginsuccess = false;
+                } 
+            }
 
             await _client.StartAsync();
 
