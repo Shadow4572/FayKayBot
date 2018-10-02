@@ -87,7 +87,11 @@ namespace FayKayBot
 
                 if (!result.IsSuccess)
                 {
-                    Console.WriteLine(result.ErrorReason);
+                    Console.WriteLine(context.Message.Timestamp.LocalDateTime + " - " + context.Message.Author + " tried: " + context.Message + "\nError: " + result.ErrorReason);
+                }
+                else
+                {
+                    Console.WriteLine(context.Message.Timestamp.LocalDateTime + " - " + context.Message.Author + " posted: " + context.Message);
                 }
             }
         }
