@@ -1,4 +1,5 @@
-﻿using Discord.Commands;
+﻿using Discord;
+using Discord.Commands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,13 @@ namespace FayKayBot.Modules
         [Command("ping")]
         public async Task PingAsync()
         {
-            await ReplyAsync("pong :heartbeat: " + Context.Client.Latency + " ms");
+            EmbedBuilder builder = new EmbedBuilder();
+
+            builder.WithTitle("pong!")
+                .WithDescription($":heartbeat: {Context.Client.Latency} ms")
+                .WithColor(Color.Red);
+
+            await ReplyAsync("", false, builder.Build());
         }
     }
 }
