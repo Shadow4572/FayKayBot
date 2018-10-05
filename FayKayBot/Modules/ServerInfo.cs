@@ -23,6 +23,13 @@ namespace FayKayBot.Modules
             int voiceChannels = Context.Guild.VoiceChannels.Count;
             string serverOwner = Context.Guild.Owner.ToString();
             string serverRegion = Context.Guild.VoiceRegionId;
+            var serverRoles = Context.Guild.Roles;
+            string serverRolesString = "";
+            int serverRolesCount = Context.Guild.Roles.Count;
+            ulong serverId = Context.Guild.Id;
+            var emotes = Context.Guild.Emotes;
+            string emotesString = "";
+            int emotesCount = Context.Guild.Emotes.Count;
 
             foreach (var v in u)
             {
@@ -30,6 +37,23 @@ namespace FayKayBot.Modules
                 {
                     onlineUsers++;
                 }
+            }
+
+            foreach (var r in serverRoles)
+            {
+                if (r.Name == serverRoles.Last().ToString())
+                {
+                    serverRolesString = serverRolesString + r.Name;
+                }
+                else
+                {
+                    serverRolesString = serverRolesString + r.Name + ", ";
+                }
+            }
+
+            foreach (var e in emotes)
+            {
+                emotesString = emotesString + ":" + e.Name + ": ";
             }
 
             EmbedBuilder builder = new EmbedBuilder();
@@ -42,7 +66,10 @@ namespace FayKayBot.Modules
                 .AddInlineField("Creation Date", $"{creationDate}")
                 .AddInlineField("Voice/Text Channels", $"{voiceChannels}/{textChannels}")
                 .AddInlineField("Server Owner", $"{serverOwner}")
-                .AddField("Server Region", $"{serverRegion}");
+                .AddField("Server Region", $"{serverRegion}")
+                .AddField($"Server Roles ({serverRolesCount})", $"{serverRolesString}")
+                .AddField($"Emotes ({emotesCount})", $"{emotesString}")
+                .WithFooter($"Server ID: {serverId}");
 
             await ReplyAsync("", false, builder.Build());
 
