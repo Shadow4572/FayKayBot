@@ -58,7 +58,7 @@ namespace FayKayBot.Modules
 
             EmbedBuilder builder = new EmbedBuilder();
 
-            builder.WithTitle("Server Information")
+            builder.WithAuthor("Server Information", serverIcon)
                 .WithDescription($"Server information for {serverName}")
                 .WithThumbnailUrl(serverIcon)
                 .WithColor(Color.Red)

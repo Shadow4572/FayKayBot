@@ -37,7 +37,6 @@ namespace FayKayBot.Modules
                         return;
                     }
                 }
-
                 await ReplyAsync("No user with this name found.");
             }
             catch (Exception ex)
