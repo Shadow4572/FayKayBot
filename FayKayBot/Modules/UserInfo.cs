@@ -59,6 +59,11 @@ namespace FayKayBot.Modules
                             game = v.Game.ToString();
                         }
 
+                        if (userColor.ToString() == "#0")
+                        {
+                            userColor = Color.LightGrey;
+                        }
+
                         foreach (var r in userRoles)
                         {
                             if (r.Name == userRoles.Last().ToString())
