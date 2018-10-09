@@ -82,7 +82,7 @@ namespace FayKayBot.Modules
                             .WithDescription($":white_small_square: **User ID:** {userId}\n:white_small_square: **Nickname:** {nickname}\n:white_small_square: **Join Date:** {userJoined}\n:white_small_square: **Account Created:** {accountCreated}\n:white_small_square: **Account Age:** {accountAge} days\n:white_small_square: **Voice Channel:** {voiceChannel}\n:white_small_square: **Playing:** {game}\n:white_small_square: **Colour:** {userColor.ToString().ToUpper()}\n:white_small_square: **User Status:** {userStatus}")
                             .WithThumbnailUrl(userIcon)
                             .WithColor(userColor)
-                            .AddInlineField($"Roles ({userRolesCount})", $"{userRolesString}");
+                            .AddInlineField($"Roles ({userRolesCount})", userRolesString);
 
                         await ReplyAsync("", false, builder.Build());
                         return;

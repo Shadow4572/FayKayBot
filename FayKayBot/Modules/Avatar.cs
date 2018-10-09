@@ -31,6 +31,7 @@ namespace FayKayBot.Modules
 
                         builder.WithTitle($"Avatar of {name}")
                             .WithImageUrl(avatarLink)
+                            .WithUrl(avatarLink)
                             .WithColor(Color.Red);
 
                         await ReplyAsync("", false, builder.Build());
