@@ -21,6 +21,7 @@ namespace FayKayBot.Modules
                 {
                     if (r.Name == name)
                     {
+                        #region Variables
                         string serverIcon = Context.Guild.IconUrl;
                         string roleName = r.Name;
                         string roleId = r.Id.ToString();
@@ -35,7 +36,9 @@ namespace FayKayBot.Modules
                         var rolePermissions = r.Permissions.ToList();
                         int rolePermissionsCount = 0;
                         string rolePermissionsString = "";
+                        #endregion
 
+                        #region Initializing variables
                         if (roleColor.ToString() == "#0")
                         {
                             roleColor = Color.LightGrey;
@@ -54,6 +57,7 @@ namespace FayKayBot.Modules
                                 rolePermissionsCount++;
                             }
                         }
+                        #endregion
 
                         EmbedBuilder builder = new EmbedBuilder();
 

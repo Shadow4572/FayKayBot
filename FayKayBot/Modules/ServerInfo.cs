@@ -13,6 +13,7 @@ namespace FayKayBot.Modules
         [Command("serverinfo")]
         public async Task ServerInfoAsync()
         {
+            #region Variables
             var u = Context.Guild.Users;
             string serverName = Context.Guild.Name;
             int onlineUsers = 0;
@@ -30,7 +31,9 @@ namespace FayKayBot.Modules
             var emotes = Context.Guild.Emotes;
             string emotesString = "";
             int emotesCount = Context.Guild.Emotes.Count;
+            #endregion
 
+            #region Initializing variables
             foreach (var v in u)
             {
                 if (v.Status.ToString() != "Offline")
@@ -55,6 +58,7 @@ namespace FayKayBot.Modules
             {
                 emotesString = emotesString + ":" + e.Name + ": ";
             }
+            #endregion
 
             EmbedBuilder builder = new EmbedBuilder();
 

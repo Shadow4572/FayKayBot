@@ -21,6 +21,7 @@ namespace FayKayBot.Modules
                 {
                     if (v.Username == name || v.Nickname == name)
                     {
+                        #region Variables
                         string username = v.ToString();
                         string nickname = v.Nickname;
                         string userIcon = v.GetAvatarUrl();
@@ -35,7 +36,9 @@ namespace FayKayBot.Modules
                         var userRoles = v.Roles;
                         string userRolesString = "";
                         int userRolesCount = v.Roles.Count;
+                        #endregion
 
+                        #region Initializing variables
                         if (nickname == null)
                         {
                             nickname = v.Username;
@@ -75,6 +78,7 @@ namespace FayKayBot.Modules
                                 userRolesString = userRolesString + r.Name + ", ";
                             }
                         }
+                        #endregion
 
                         EmbedBuilder builder = new EmbedBuilder();
 
