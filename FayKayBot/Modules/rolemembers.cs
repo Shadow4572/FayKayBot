@@ -18,6 +18,7 @@ namespace FayKayBot.Modules
             var roles = Context.Guild.Roles;
             bool roleExists = false;
             Color roleColor = Color.Red;
+            int count = 0;
             #endregion
 
             foreach (var ro in roles)
@@ -48,10 +49,22 @@ namespace FayKayBot.Modules
                         if (r.Name == name)
                         {
                             builder.AddField(v.ToString(), v.Mention);
+                            count++;
                         }
                     }
+
+                    if (count >= 25)
+                    {
+                        await ReplyAsync("", false, builder.Build());
+                        count = 0;
+                        builder.Fields.Clear();
+                    }
                 }
-                await ReplyAsync("", false, builder.Build());
+
+                if (count > 0)
+                {
+                    await ReplyAsync("", false, builder.Build()); 
+                }
             }
             else
             {
