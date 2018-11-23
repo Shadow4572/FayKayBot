@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FayKayBot.Modules
 {
-    public class Rolemembers : ModuleBase<SocketCommandContext>
+    public class RoleMembers : ModuleBase<SocketCommandContext>
     {
         [Command("rolemembers")]
         public async Task RolemembersAsync([Remainder] string name)

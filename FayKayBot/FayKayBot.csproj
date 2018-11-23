@@ -131,7 +131,8 @@
     <Compile Include="Modules\Avatar.cs" />
     <Compile Include="Modules\Help.cs" />
     <Compile Include="Modules\Pick.cs" />
-    <Compile Include="Modules\Rolemembers.cs" />
+    <Compile Include="Modules\ChannelInfo.cs" />
+    <Compile Include="Modules\RoleMembers.cs" />
     <Compile Include="Modules\Reverse.cs" />
     <Compile Include="Modules\RoleInfo.cs" />
     <Compile Include="Modules\UserInfo.cs" />
