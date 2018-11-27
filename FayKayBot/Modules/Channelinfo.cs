@@ -20,6 +20,7 @@ namespace FayKayBot.Modules
                 if (name == ch.Name)
                 {
                     #region Variables
+                    string channelName = ch.Name;
                     string channelId = ch.Id.ToString();
                     int channelPos = ch.Position;
                     string channelType = ch.GetType().Name;
@@ -29,25 +30,30 @@ namespace FayKayBot.Modules
                     {
                         channelType = "Text Channel";
                         var channelMention = ch;
-                        //string channelTopic =
+                        string channelTopic = ch.Guild.GetTextChannel(ch.Id).Topic;
                     }
                     else if (channelType == "SocketVoiceChannel")
                     {
                         channelType = "Voice Channel";
+                        int channelBitRate = ch.Guild.GetVoiceChannel(ch.Id).Bitrate;
+                        int channelConectedUsers = ch.Guild.GetVoiceChannel(ch.Id).Users.Count;
                     }
 
-                    await ReplyAsync(channelType);
+                    EmbedBuilder builder = new EmbedBuilder();
+
+                    if (channelType == "Text Channel")
+                    {
+                        builder.WithTitle(channelName)
+                            .AddInlineField("ID", channelId)
+                            .AddInlineField("position", channelPos)
+                            .AddInlineField("Channel Type", channelType)
+                            .WithColor(Color.Red); 
+                    }
+
+                    await ReplyAsync("", false, builder.Build());
                     #endregion
                 }
             }
-
-            //EmbedBuilder builder = new EmbedBuilder();
-
-            //builder.WithTitle("pong!")
-            //    .WithDescription($":heartbeat: {Context.Client.Latency} ms")
-            //    .WithColor(Color.Red);
-
-            //await ReplyAsync("", false, builder.Build());
         }
     }
 }
