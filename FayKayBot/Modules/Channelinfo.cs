@@ -1,5 +1,6 @@
 ﻿using Discord;
 using Discord.Commands;
+using Discord.WebSocket;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,18 +26,22 @@ namespace FayKayBot.Modules
                     int channelPos = ch.Position;
                     string channelType = ch.GetType().Name;
                     int channelPerms = ch.PermissionOverwrites.Count;
+                    SocketGuildChannel channelMention = null;
+                    string channelTopic = "";
+                    int channelBitRate;
+                    int channelConectedUsers;
 
                     if (channelType == "SocketTextChannel")
                     {
                         channelType = "Text Channel";
-                        var channelMention = ch;
-                        string channelTopic = ch.Guild.GetTextChannel(ch.Id).Topic;
+                        channelMention = ch;
+                        channelTopic = ch.Guild.GetTextChannel(ch.Id).Topic;
                     }
                     else if (channelType == "SocketVoiceChannel")
                     {
                         channelType = "Voice Channel";
-                        int channelBitRate = ch.Guild.GetVoiceChannel(ch.Id).Bitrate;
-                        int channelConectedUsers = ch.Guild.GetVoiceChannel(ch.Id).Users.Count;
+                        channelBitRate = ch.Guild.GetVoiceChannel(ch.Id).Bitrate;
+                        channelConectedUsers = ch.Guild.GetVoiceChannel(ch.Id).Users.Count;
                     }
 
                     EmbedBuilder builder = new EmbedBuilder();
@@ -45,8 +50,11 @@ namespace FayKayBot.Modules
                     {
                         builder.WithTitle(channelName)
                             .AddInlineField("ID", channelId)
-                            .AddInlineField("position", channelPos)
+                            .AddInlineField("Position", channelPos)
                             .AddInlineField("Channel Type", channelType)
+                            .AddInlineField("Mention", channelMention)
+                            .AddInlineField("Permission Overwrites", channelPerms)
+                            .AddField("Topic", channelTopic)
                             .WithColor(Color.Red); 
                     }
 
