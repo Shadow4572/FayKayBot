@@ -26,7 +26,7 @@ namespace FayKayBot.Modules
                         string roleName = r.Name;
                         string roleId = r.Id.ToString();
                         var roleCreated = r.CreatedAt.LocalDateTime;
-                        var roleAge = DateTime.Now.Subtract(roleCreated).Days;
+                        int roleAge = DateTime.Now.Subtract(roleCreated).Days;
                         Color roleColor = r.Color;
                         int memberNumber = r.Members.Count();
                         int rolePosition = r.Position;
@@ -62,7 +62,7 @@ namespace FayKayBot.Modules
                         EmbedBuilder builder = new EmbedBuilder();
 
                         builder.WithAuthor($"Role information for {roleName}", serverIcon)
-                            .WithDescription($":white_small_square: **Role ID:** {roleId}\n:white_small_square: **Role Created:** {roleCreated}\n:white_small_square: **Role Age:** {roleAge}\n:white_small_square: **Role Colour:** {roleColor.ToString().ToUpper()}\n:white_small_square: **Number of members:** {memberNumber}\n:white_small_square: **Role Position:** {rolePosition}\n:white_small_square: **Managed:** {roleManaged}\n:white_small_square: **Hoisted:** {roleHoisted}\n:white_small_square: **Mentionable:** {roleMentionable}\n")
+                            .WithDescription($":white_small_square: **Role ID:** {roleId}\n:white_small_square: **Role Created:** {roleCreated}\n:white_small_square: **Role Age:** {roleAge} days\n:white_small_square: **Role Colour:** {roleColor.ToString().ToUpper()}\n:white_small_square: **Number of members:** {memberNumber}\n:white_small_square: **Role Position:** {rolePosition}\n:white_small_square: **Managed:** {roleManaged}\n:white_small_square: **Hoisted:** {roleHoisted}\n:white_small_square: **Mentionable:** {roleMentionable}\n")
                             .WithColor(roleColor)
                             .AddInlineField($"Permissions ({rolePermissionsCount})", rolePermissionsString);
 

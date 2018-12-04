@@ -30,6 +30,13 @@ namespace FayKayBot.Modules
                     string channelTopic = "";
                     int channelBitRate;
                     int channelConectedUsers;
+                    var channelCreated = ch.CreatedAt.LocalDateTime;
+                    var channelAge = DateTime.Now.Subtract(channelCreated);
+                    int channelYears = channelAge.Days / 365;
+                    int channelMonths = (channelAge.Days - (channelYears * 365)) / 30;
+                    int channelWeeks = (channelAge.Days - (channelYears * 365 + channelMonths * 30)) / 7;
+                    int channelDays = channelAge.Days - (channelYears * 365 + channelMonths * 30 + channelWeeks * 7);
+                    int channelHours = channelAge.Hours;
 
                     if (channelType == "SocketTextChannel")
                     {
@@ -55,6 +62,7 @@ namespace FayKayBot.Modules
                             .AddInlineField("Mention", channelMention)
                             .AddInlineField("Permission Overwrites", channelPerms)
                             .AddField("Topic", channelTopic)
+                            .WithFooter($"Years: {channelYears}, Months: {channelMonths}, Weeks: {channelWeeks}, Days: {channelDays}, Hours: {channelHours}")
                             .WithColor(Color.Red); 
                     }
 
