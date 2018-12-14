@@ -26,22 +26,19 @@ namespace FayKayBot.Modules
                     int channelPos = ch.Position;
                     string channelType = ch.GetType().Name;
                     int channelPerms = ch.PermissionOverwrites.Count;
-                    SocketGuildChannel channelMention = null;
+                    string channelMention = "";
                     string channelTopic = "";
-                    int channelBitRate;
-                    int channelConectedUsers;
+                    int channelBitRate = 0;
+                    int channelConectedUsers = 0;
                     var channelCreated = ch.CreatedAt.LocalDateTime;
-                    var channelAge = DateTime.Now.Subtract(channelCreated);
-                    int channelYears = channelAge.Days / 365;
-                    int channelMonths = (channelAge.Days - (channelYears * 365)) / 30;
-                    int channelWeeks = (channelAge.Days - (channelYears * 365 + channelMonths * 30)) / 7;
-                    int channelDays = channelAge.Days - (channelYears * 365 + channelMonths * 30 + channelWeeks * 7);
-                    int channelHours = channelAge.Hours;
+                    EmbedBuilder builder = new EmbedBuilder();
+                    #endregion
 
+                    #region Initializing variables
                     if (channelType == "SocketTextChannel")
                     {
                         channelType = "Text Channel";
-                        channelMention = ch;
+                        channelMention = ch.Guild.GetTextChannel(ch.Id).Mention;
                         channelTopic = ch.Guild.GetTextChannel(ch.Id).Topic;
                     }
                     else if (channelType == "SocketVoiceChannel")
@@ -50,8 +47,7 @@ namespace FayKayBot.Modules
                         channelBitRate = ch.Guild.GetVoiceChannel(ch.Id).Bitrate;
                         channelConectedUsers = ch.Guild.GetVoiceChannel(ch.Id).Users.Count;
                     }
-
-                    EmbedBuilder builder = new EmbedBuilder();
+                    #endregion
 
                     if (channelType == "Text Channel")
                     {
@@ -62,14 +58,30 @@ namespace FayKayBot.Modules
                             .AddInlineField("Mention", channelMention)
                             .AddInlineField("Permission Overwrites", channelPerms)
                             .AddField("Topic", channelTopic)
-                            .WithFooter($"Years: {channelYears}, Months: {channelMonths}, Weeks: {channelWeeks}, Days: {channelDays}, Hours: {channelHours}")
-                            .WithColor(Color.Red); 
-                    }
+                            .WithFooter($"Creation date: {channelCreated}")
+                            .WithColor(Color.Red);
 
-                    await ReplyAsync("", false, builder.Build());
-                    #endregion
+                        await ReplyAsync("", false, builder.Build());
+                        return;
+                    }
+                    else if (channelType == "Voice Channel")
+                    {
+                        builder.WithTitle(channelName)
+                            .AddInlineField("ID", channelId)
+                            .AddInlineField("Position", channelPos)
+                            .AddInlineField("Channel Type", channelType)
+                            .AddInlineField("Voice Bitrate", channelBitRate)
+                            .AddInlineField("Connected Users", channelConectedUsers)
+                            .AddInlineField("Permission Overwrites", channelPerms)
+                            .WithFooter($"Creation date: {channelCreated}")
+                            .WithColor(Color.Red);
+
+                        await ReplyAsync("", false, builder.Build());
+                        return;
+                    }
                 }
             }
+            await ReplyAsync("No channel with this name found.");
         }
     }
 }
